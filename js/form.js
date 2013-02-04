@@ -499,4 +499,3 @@ function findPosX(obj) {
 	while (obj.offsetParent) {posLeft += obj.offsetLeft; obj = obj.offsetParent;}
 	return posLeft;
 }
-window.onload = initCastomForms;
