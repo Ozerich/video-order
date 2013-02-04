@@ -9,6 +9,9 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.helpers.*',
+		'application.extensions.*',
+        'application.extensions.yii-mail.*',
 	),
 
 	'modules'=>array(
@@ -24,11 +27,26 @@ return array(
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(
+                'load' => 'site/load',
+                'upload' => 'site/upload',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
+
+        'mail' => array(
+            'class' => 'application.extensions.yii-mail.YiiMail',
+            'transportType' => 'php',
+            'viewPath' => 'application.views.mail',
+            'logging' => true,
+            'dryRun' => false
+        ),
+
+        'image'=>array(
+            'class'=>'application.extensions.image.CImageComponent',
+            'driver'=>'GD',
+        ),
 
         'db' => require(dirname(__FILE__) . '/db.php'),
 
@@ -48,5 +66,9 @@ return array(
 	),
 
 	'params'=>array(
+        'directory_designs' => '/uploads/designs',
+        'directory_tmp' => '/uploads/tmp',
+        'directory_voices' => '/uploads/mp3',
+        'directory_music' => '/uploads/mp3',
 	),
 );
