@@ -208,7 +208,7 @@ Video._ViewModel = function () {
 
     this.sessionId = ko.observable();
 
-    this.active_tab = ko.observable(3);
+    this.active_tab = ko.observable(2);
 
     this.changeActiveTab = function (ind) {
         this.active_tab(ind);
@@ -311,7 +311,7 @@ Video._ViewModel = function () {
         initAll();
         $('.demo .iframe').fancybox({"type":"iframe"});
 
-        basicMP3Player = new BasicMP3Player();
+        //  basicMP3Player = new BasicMP3Player();
 
         that.loader(false);
     });
