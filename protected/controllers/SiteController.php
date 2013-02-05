@@ -103,4 +103,59 @@ class SiteController extends CController
         echo json_encode($result);
         die;
     }
+
+
+    private function processFile($file)
+    {
+        if (empty($file)) return '';
+
+        $old_file = $_SERVER['DOCUMENT_ROOT'] . $file;
+
+        if (!file_exists($old_file)) return "";
+
+        $filename = substr($old_file, strrpos($old_file, '/') + 1);
+        $new_file = $_SERVER['DOCUMENT_ROOT'] . '/' . Yii::app()->params['directory_user_uploads'] . '/' . $filename;
+
+        if (copy($old_file, $new_file)) {
+            unlink($old_file);
+        } else {
+            return "";
+        }
+
+        return $filename;
+    }
+
+
+    public function actionSave()
+    {
+        $order = new Order;
+
+        $order->design_id = Yii::app()->request->getPost('Design');
+        $order->voice_id = Yii::app()->request->getPost('Voice');
+        $order->music_id = Yii::app()->request->getPost('Music');
+        $order->music_file = $this->processFile(Yii::app()->request->getPost('Music_File'));
+        $order->email = Yii::app()->request->getPost('Email');
+        $order->name = Yii::app()->request->getPost('Name');
+        $order->information = Yii::app()->request->getPost('Information');
+        $order->created = time();
+
+        $order->save();
+
+        if (isset($_POST['Frames'])) {
+            foreach ($_POST['Frames'] as $_frame) {
+                $frame = new OrderFrame();
+
+                $frame->order_id = $order->id;
+
+                $frame->text = $_frame['Text'];
+                $frame->speaker_text = $_frame['Speaker_Text'];
+                $frame->image = $this->processFile($_frame['Image']);
+                $frame->preview_image = $this->processFile($_frame['Preview']);
+
+                $frame->save();
+            }
+        }
+
+        Yii::app()->end();
+    }
 }

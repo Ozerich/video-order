@@ -1,3 +1,11 @@
+<div class="page-loader-overlay" data-bind="visible: save_loader"></div>
+<div class="page-loader" data-bind="visible: save_loader">
+    <p>Идет загрузка....</p>
+
+    <p>Пожалуйста подождите</p>
+    <img src="/images/page-loader.gif"/>
+</div>
+
 <div class="frames-block" data-bind="foreach: frames">
     <div class="fill-block">
         <h2>
@@ -75,7 +83,7 @@
 </div>
 
 <div class="final-block">
-    <p>Если все верно - введите ваш настоящий электронный адрес, имя и любую другу</p>
+    <p>Если все верно - введите ваш настоящий электронный адрес, имя и любую другую информацию</p>
 
     <div class="form">
         <div class="left">

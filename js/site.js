@@ -432,17 +432,13 @@ Video._ViewModel = function () {
         that.active_tab(3);
     };
 
-    this.submit = function () {
-        that.active_tab(5);
-    };
-
-    this.value = ko.observable();
+    this.name = ko.observable();
     this.email = ko.observable();
     this.information = ko.observable();
 
     this.moveFrame = function (frame, direction) {
         var frames = that.frames();
-var t;
+        var t;
         for (var i = 0; i < frames.length; i++) {
             if (frames[i] == frame) {
 
@@ -471,9 +467,45 @@ var t;
 
     this.downFrame = function (frame) {
         that.moveFrame(frame, 1);
+    };
+
+    this.getAJAX = function () {
+        var ajaxFrames = [];
+
+        for (var i in that.frames()) {
+            var _frame = that.frames()[i];
+
+            ajaxFrames.push({
+                Image:_frame.image(),
+                Preview:_frame.preview_image(),
+                Text:_frame.speaker_text(),
+                Speaker_Text:_frame.text()
+            });
+        }
+
+        return {
+            Design:that.selectedDesign() ? that.selectedDesign().getID() : 0,
+            Voice:that.selectedVoice() ? that.selectedVoice().getID() : 0,
+            Music:that.selectedMusic() ? that.selectedMusic().getID() : 0,
+            Music_File:that.custom_file(),
+            Frames:ajaxFrames,
+            Email:that.email(),
+            Name:that.name(),
+            Information:that.information()
+        };
+
+    };
+
+    this.save_loader = ko.observable(false);
+
+    this.submit = function () {
+      //  that.save_loader(true);
+
+        $.post('/save', this.getAJAX(), function (data) {
+            that.save_loader(false);
+       //     that.active_tab(5);
+        });
     }
-
-
 };
 
 Video.ViewModel = new Video._ViewModel();

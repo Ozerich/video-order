@@ -30,6 +30,7 @@ return array(
                 'load' => 'site/load',
                 'upload' => 'site/upload',
                 'upload_mp3' => 'site/upload_mp3',
+                'save' => 'site/save',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
@@ -71,5 +72,6 @@ return array(
         'directory_tmp' => '/uploads/tmp',
         'directory_voices' => '/uploads/mp3',
         'directory_music' => '/uploads/mp3',
+        'directory_user_uploads' => '/uploads/user',
 	),
 );
