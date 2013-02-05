@@ -222,7 +222,8 @@ Video.Models.Frame = function () {
 Video._ViewModel = function () {
     var that = this;
 
-    this.allowedExts = ['jpg', 'png', 'bmp', 'gif'];
+    this.allowedImageExts = ['jpg', 'png', 'bmp', 'gif'];
+    this.allowedMusicExts = ['mp3'];
 
     this.sessionId = ko.observable();
 
@@ -234,6 +235,7 @@ Video._ViewModel = function () {
 
 
     this.loader = ko.observable(true);
+    this.file_loader = ko.observable(false);
 
     this.designs = ko.observableArray();
     this.voices = ko.observableArray();
@@ -286,19 +288,42 @@ Video._ViewModel = function () {
         this.music.push(music);
     };
 
+
+    this.custom_file = ko.observable('');
+    this.custom_file_realname = ko.observable('');
     this.selectedMusic = ko.observable(null);
     this.selectMusic = function (music) {
-        that.selectedMusic(music);
+        that.custom_file('');
+        that.custom_file_realname('');
+        that.selectedMusic(that.selectedMusic() == null || that.selectedMusic().getID() != music.getID() ? music : null);
+
     };
+
+    this.musicFile = ko.computed(function () {
+
+        if (this.selectedMusic() !== null)
+            return {
+                real:this.selectedMusic().getName(),
+                server:this.selectedMusic().getFile()
+            };
+
+        if (this.custom_file())
+            return {
+                real:this.custom_file_realname(),
+                server:this.custom_file()
+            };
+
+        return null;
+    }, this);
 
     this.selectedDesign = ko.observable(null);
     this.selectDesign = function (design) {
-        that.selectedDesign(design);
+        that.selectedDesign(that.selectedDesign() == null || that.selectedDesign().getID() != design.getID() ? design : null);
     };
 
     this.selectedVoice = ko.observable(null);
     this.selectVoice = function (voice) {
-        that.selectedVoice(voice);
+        that.selectedVoice(that.selectedVoice() == null || that.selectedVoice().getID() != voice.getID() ? voice : null);
     };
 
 
@@ -329,7 +354,7 @@ Video._ViewModel = function () {
         initAll();
         $('.demo .iframe').fancybox({"type":"iframe"});
 
-        //  basicMP3Player = new BasicMP3Player();
+        basicMP3Player = new BasicMP3Player();
 
         that.loader(false);
     });
@@ -399,21 +424,110 @@ Video._ViewModel = function () {
     }, this);
 
 
+    this.go_to_final = function () {
+        that.active_tab(4);
+    };
+
+    this.back_to_edit = function () {
+        that.active_tab(3);
+    };
+
     this.submit = function () {
-        alert('submited');
+        that.active_tab(5);
+    };
+
+    this.value = ko.observable();
+    this.email = ko.observable();
+    this.information = ko.observable();
+
+    this.moveFrame = function (frame, direction) {
+        var frames = that.frames();
+var t;
+        for (var i = 0; i < frames.length; i++) {
+            if (frames[i] == frame) {
+
+                if (direction == -1 && i > 0) {
+                    t = frames[i - 1];
+                    frames[i - 1] = frames[i];
+                    frames[i] = t;
+                }
+
+                if (direction == 1 && i < frames.length - 1) {
+                    t = frames[i + 1];
+                    frames[i + 1] = frames[i];
+                    frames[i] = t;
+                }
+
+                break;
+            }
+        }
+
+        that.frames(frames);
+    };
+
+    this.upFrame = function (frame) {
+        that.moveFrame(frame, -1);
+    };
+
+    this.downFrame = function (frame) {
+        that.moveFrame(frame, 1);
     }
+
+
 };
 
 Video.ViewModel = new Video._ViewModel();
 
 
+Video.loadMusic = function () {
+
+    var value = $(event.target).val();
+
+    var realname = value.substring(value.lastIndexOf('\\') + 1, value.length);
+
+    if (value) {
+        if (value.indexOf('.') === -1 || jQuery.inArray(value.substr(value.lastIndexOf('.') + 1).toLowerCase(), Video.ViewModel.allowedMusicExts) == -1) {
+            alert('Запрещенный формат файла!');
+            return;
+        }
+    }
+
+    Video.ViewModel.file_loader(true);
+
+    $.ajaxFileUpload({
+        url:'/upload_mp3',
+        secureuri:false,
+        fileElementId:'file_input',
+        dataType:'json',
+        success:function (data, status) {
+            if (typeof(data.error) != 'undefined') {
+                if (data.error != '') {
+                    alert(data.error);
+                } else {
+
+
+                    Video.ViewModel.file_loader(false);
+                    Video.ViewModel.custom_file(data.file);
+                    Video.ViewModel.custom_file_realname(realname);
+                    Video.ViewModel.selectedMusic(null);
+                    $('.gallery-holder.sound .radioAreaChecked').removeClass('radioAreaChecked').addClass('radioArea');
+
+
+                }
+            }
+        },
+        error:function (data, status, e) {
+            alert(e);
+        }
+    });
+};
+
 Video.loadFile = function (event) {
 
     var value = $(event.target).val();
 
-
     if (value) {
-        if (value.indexOf('.') === -1 || jQuery.inArray(value.substr(value.lastIndexOf('.') + 1).toLowerCase(), Video.ViewModel.allowedExts) == -1) {
+        if (value.indexOf('.') === -1 || jQuery.inArray(value.substr(value.lastIndexOf('.') + 1).toLowerCase(), Video.ViewModel.allowedImageExts) == -1) {
             alert('Запрещенный формат файла!');
             return;
         }
@@ -458,11 +572,14 @@ $(function () {
     ko.applyBindings(Video.ViewModel);
 
     $(".help").simpletip({
+        // onShow method - change content of parent element
         onBeforeShow:function () {
             var text = this.getParent().find('img').attr('alt');
             this.getTooltip().html(text);
         },
-        content:'My Simpletip'
+        // Configuration properties
+        content:'My Simpletip',
+        offset:[-$('#page_step_1').offset().left, -$('#page_step_1').offset().top + 5]
     });
 
     soundManager.setup({

@@ -1,76 +1,38 @@
+<header>
+
+    <h1 class="logo"><a href="#">LOGO.ru</a></h1>
+
+    <nav>
+        <ul data-bind="visible: active_tab() < 4">
+            <li data-bind="css:{active: active_tab() == 1}, click: function(data, event) { changeActiveTab(1); }"><span><a
+                    href="#">О ПРОДУКТЕ</a></span></li>
+            <li data-bind="css:{active: active_tab() == 2}, click: function(data, event) { changeActiveTab(2); }"><span><a
+                    href="#">ШАГ 1</a></span></li>
+            <li data-bind="css:{active: active_tab() == 3}, click: function(data, event) { changeActiveTab(3); }"><span><a
+                    href="#">ШАГ 2</a></span></li>
+        </ul>
+    </nav>
+
+</header>
+
 <div id="page_about" class="page" data-bind="visible: active_tab() == 1"><?=$this->renderPartial('about');?></div>
-<div id="page_step_1" class="page" data-bind="visible: active_tab() == 2"><?=$this->renderPartial('step1');?></div>
-<div id="page_step_2" class="page" data-bind="visible: active_tab() == 3"><?=$this->renderPartial('step2');?></div>
 
-<div id="status_block">
-    <h3>
-        ТЕКУЩИЙ СТАТУС ВАШЕГО ВИДЕО:
-        <a href="#" class="help">
-            <img src="../../../images/icon01.png" width="21" height="22" alt="<a href='#' class='prev'>ссылка</a>"/>
-        </a>
-    </h3>
-
-    <div class="t">&nbsp;</div>
-    <div class="c">
-        <div class="aside">
-            <h4>
-                Срок изготовления:
-                <a href="#" class="help">
-                    <img src="../../../images/icon01.png" width="21" height="22" alt="<a href='#' class='prev'>ссылка</a>"/>
-                </a>
-            </h4>
-            <strong data-bind="text: days"></strong>
-            <h4>
-                Стоимость:
-                <a href="#" class="help">
-                    <img src="../../../images/icon01.png" width="21" height="22" alt="<a href='#' class='prev'>ссылка</a>"/>
-                </a>
-            </h4>
-            <strong><span data-bind="text: price"></span> руб.</strong>
-        </div>
-        <div class="info-block">
-            <div class="video-info">
-                <span>Кадров: <em data-bind="text: frames().length"></em></span>
-							<span>
-								Примерный хронометраж:
-								<a href="#" class="help">
-                                    <img src="../../../images/icon01.png" width="21" height="22"
-                                         alt="<a href='#' class='prev'>ссылка</a>"/>
-                                </a>
-							</span>
-                <span data-bind="text: time"></span>
-            </div>
-            <ul>
-                <li>
-                    <span class="text">Дизайн</span>
-                    <span class="name">&nbsp;</span>
-
-                    <div style="display:none;" class="visual">
-                        <img src="images/none.gif" width="110" height="61" alt="image description"/>
-
-                        <div class="demo">
-                            <a class="iframe" href="http://www.youtube.com/embed/YYct5aH_Fik">смотреть демо</a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <span class="text">Диктор</span>
-                    <span class="name">&nbsp;</span>
-
-                    <div style="display:none;" class="play">
-                        <a href="#">play</a>
-                    </div>
-                </li>
-                <li>
-                    <span class="text">Музыка</span>
-                    <span class="name">&nbsp;</span>
-
-                    <div style="display:none;" class="play">
-                        <a href="#">play</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="b">&nbsp;</div>
+<div id="page_step_1" class="page" data-bind="visible: active_tab() == 2">
+    <?=$this->renderPartial('step1');?>
+    <?=$this->renderPartial('status'); ?>
 </div>
+
+<div id="page_step_2" class="page" data-bind="visible: active_tab() == 3">
+    <?=$this->renderPartial('step2');?>
+    <?=$this->renderPartial('status'); ?>
+</div>
+
+<div id="page_final" class="page" data-bind="visible: active_tab() == 4">
+    <?=$this->renderPartial('status');?>
+    <?=$this->renderPartial('final'); ?>
+</div>
+
+
+    <div id="page_success" class="page" data-bind="visible: active_tab() == 5">
+        <?=$this->renderPartial('success');?>
+    </div>

@@ -29,6 +29,7 @@ return array(
 			'rules'=>array(
                 'load' => 'site/load',
                 'upload' => 'site/upload',
+                'upload_mp3' => 'site/upload_mp3',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',

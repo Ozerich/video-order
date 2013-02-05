@@ -53,6 +53,29 @@ class SiteController extends CController
     }
 
 
+    public function actionUpload_mp3()
+    {
+        $result = array(
+            'file' => '',
+            'error' => ''
+        );
+
+        $model = new UploadForm('music');
+
+        $model->image = CUploadedFile::getInstance($model, 'image');
+
+        if (!$model->image) {
+            $result['error'] = 'Ошибка загрузки звукового файла';
+        } else {
+
+            $result['file'] = Yii::app()->params['directory_tmp'] . "/" . uniqid() . "." . $model->image->getExtensionName();
+            $model->image->saveAs($_SERVER['DOCUMENT_ROOT'] . $result['file']);
+
+        }
+        echo json_encode($result);
+        die;
+    }
+
     public function actionUpload()
     {
         $result = array(
@@ -62,7 +85,7 @@ class SiteController extends CController
         );
 
 
-        $model = new UploadForm();
+        $model = new UploadForm('image');
         $model->image = CUploadedFile::getInstance($model, 'image');
         if (!$model->image) {
             $result['error'] = 'Ошибка загрузки фотографии';

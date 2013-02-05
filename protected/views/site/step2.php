@@ -1,3 +1,4 @@
+<div class="frames-block">
 <div class="fill-block">
     <h2>
         Наполните кадры вашего ролика:
@@ -45,11 +46,11 @@
                 <div class="c">
 
                     <h2>
-                        <span><span class="frame-number"><span data-bind="text: $index() + 1"></span> кадр</span>
+                        <span><span class="frame-number"><!--ko text: $index() + 1 --><!--/ko--> кадр</span>
                             <a href="#" class="erase" data-bind="click: $root.deleteFrame">erase</a>
                             <span class="direction">
-                                <a href="#" class="up">up</a>
-                                <a href="#" class="down">down</a>
+                                <a href="#" class="up" data-bind="click: $root.upFrame">up</a>
+                                <a href="#" class="down" data-bind="click: $root.downFrame">down</a>
                             </span>
                         </span>
                     </h2>
@@ -100,8 +101,10 @@
         <div class="add-still">
             <span class="add"><a data-bind="click: addFrame" href="#">+ ДОБАВИТЬ КАДР</a></span>
             ИЛИ
-            <span class="save"><input data-bind="click: submit" type="submit"
+            <span class="save"><input data-bind="click: go_to_final" type="submit"
                                       value="СОХРАНИТЬ И ПЕРЕДАТЬ В ПРОИЗВОДСТВО"/></span>
         </div>
     </fieldset>
 </form>
+
+</div>

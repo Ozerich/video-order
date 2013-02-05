@@ -7,9 +7,7 @@ function initChooseEl(){
         if(visual.is('.checked')){
 			visual.removeClass('checked');
 			$(this).removeClass('radioAreaChecked').addClass('radioArea').next().attr('checked',false);
-			$('.info-block .visual img').attr('src','images/none.gif').parent().hide();
-			$('.info-block .visual a.iframe').attr('href',' ');
-			$('.info-block ul li').eq(0).find('.name').text(' ');
+
 		}else{
 			if($(this).is('.radioAreaChecked')){
 				var img=$(this).parents('li').find('.visual img').attr('src'),
@@ -17,9 +15,7 @@ function initChooseEl(){
 					title=$(this).parents('li').find('.text').text();
 					$(this).parents('ul').find('.visual').removeClass('checked');
 				visual.addClass('checked');
-				$('.info-block .visual img').attr('src',img).parent().show();
-				$('.info-block .visual a.iframe').attr('href',youtube_link);
-				$('.info-block ul li').eq(0).find('.name').text(title);
+
 			}else{
                 visual.removeClass('checked');
 			}
@@ -32,14 +28,11 @@ function initChooseEl(){
 		if ($(this).parent().hasClass('active')){
 			$(this).parent().removeClass('active');
 			$(this).removeClass('radioAreaChecked').addClass('radioArea').next().attr('checked', false);
-			$('.info-block ul li').eq(1).find('.name').text('');
-			$('.info-block ul li').eq(1).find('.play').hide();
+
 		}else{
 			if($(this).is('.radioAreaChecked')){
 				$(this).closest('.gallery-holder').find('ul>li .check-holder.active').removeClass('active');
 				$(this).parent().addClass('active');
-				$('.info-block ul li').eq(1).find('.name').text($(this).parents('li:first').find('.text').text());
-				$('.info-block ul li').eq(1).find('.play').show();
 			}
 		}
 	});
@@ -47,18 +40,14 @@ function initChooseEl(){
 		if($(this).parent().hasClass('active')){
 			$(this).parent().removeClass('active');
 			$(this).removeClass('radioAreaChecked').addClass('radioArea').next().attr('checked',false);
-			$('.info-block ul li').eq(2).find('.name').text('');
-			$('.info-block ul li').eq(2).find('.play').hide();
 		}else{
 			if($(this).is('.radioAreaChecked')){
 				$(this).closest('ul').find('>li .check-holder.active').removeClass('active');
 				$(this).parent().addClass('active');
-				$('.info-block ul li').eq(2).find('.name').text($(this).parents('li:first').find('.text').text());
-				$('.info-block ul li').eq(2).find('.play').show();
 				$('.filename').val('').prev().find('input:file').val('');
 			}
 		}
-		
+
 	});
 }
 
@@ -171,12 +160,13 @@ function initTxtCounter(){
 			}
 			money.text((calc_money+3000)+"руб.");
 			time.text(formatTime(calc_time));
-	}
+	};
+
 	$('textarea').trigger('keyup');
 	function formatTime(time){
 		var ms=parseInt(time%1000),
 			s=parseInt(time/1000),
-			m=parseInt(s/60), 
+			m=parseInt(s/60),
 			h=parseInt(m/60);
 			(s%=60) < 10 ? s='0'+s:s;
 			(m%=60) < 10 ? m='0'+m:m;

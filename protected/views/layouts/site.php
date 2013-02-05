@@ -38,22 +38,6 @@
 <body>
 <div id="wrapper">
 
-    <header>
-
-        <h1 class="logo"><a href="#">LOGO.ru</a></h1>
-
-        <nav>
-            <ul>
-                <li data-bind="css:{active: active_tab() == 1}, click: function(data, event) { changeActiveTab(1); }"><span><a
-                        href="#">О ПРОДУКТЕ</a></span></li>
-                <li data-bind="css:{active: active_tab() == 2}, click: function(data, event) { changeActiveTab(2); }"><span><a
-                        href="#">ШАГ 1</a></span></li>
-                <li data-bind="css:{active: active_tab() == 3}, click: function(data, event) { changeActiveTab(3); }"><span><a
-                        href="#">ШАГ 2</a></span></li>
-            </ul>
-        </nav>
-
-    </header>
 
 
     <?=$content?>
