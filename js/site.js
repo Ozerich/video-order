@@ -151,6 +151,24 @@ Video.Models.Frame = function () {
     this.image = ko.observable('');
     this.preview_image = ko.observable('');
 
+    this.speaker_text = ko.observable('');
+    this.text = ko.observable('');
+
+
+    function wordsCount(text) {
+        var res = text.match(/[a-zа-я]{1,}(-[a-zа-я]{1,})?/ig);
+        return res ? res.length : 0;
+    }
+
+    this.words_count = ko.computed(function () {
+        return wordsCount(this.text());
+    }, this);
+
+    this.speaker_words_count = ko.computed(function () {
+        return wordsCount(this.speaker_text());
+    }, this);
+
+
     var _id = Math.round(Math.random() * 1000000);
 
     this.getID = function () {
@@ -354,6 +372,32 @@ Video._ViewModel = function () {
         this.addFrame();
     }
 
+    this.words_count = ko.computed(function () {
+        var res = 0;
+        for (var i in this.frames()) {
+            res += this.frames()[i].words_count();
+        }
+        return res;
+    }, this);
+
+    this.price = ko.computed(function () {
+        return 3000 + this.words_count() * 20;
+    }, this);
+
+    this.days = ko.computed(function () {
+        var words_count = this.words_count();
+        return words_count <= 200 ? "1 день" : parseInt((words_count / 200)) + 1 + " дней";
+    }, this);
+
+    this.time = ko.computed(function () {
+        var time = this.words_count() * 500;
+        var ms = parseInt(time % 1000), s = parseInt(time / 1000), m = parseInt(s / 60), h = parseInt(m / 60);
+        (s %= 60) < 10 ? s = '0' + s : s;
+        (m %= 60) < 10 ? m = '0' + m : m;
+        (h) < 10 ? h = '0' + h : h;
+        return m + "мин:" + s + "сек.";
+    }, this);
+
 
     this.submit = function () {
         alert('submited');
@@ -414,16 +458,16 @@ $(function () {
     ko.applyBindings(Video.ViewModel);
 
     $(".help").simpletip({
-        onBeforeShow: function(){
-            var text=this.getParent().find('img').attr('alt');
+        onBeforeShow:function () {
+            var text = this.getParent().find('img').attr('alt');
             this.getTooltip().html(text);
         },
-        content: 'My Simpletip'
+        content:'My Simpletip'
     });
 
     soundManager.setup({
-        useFlashBlock: false,
-        url: '/js/swf/',
+        useFlashBlock:false,
+        url:'/js/swf/',
     });
 
 });

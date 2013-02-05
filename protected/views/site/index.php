@@ -19,14 +19,14 @@
                     <img src="../../../images/icon01.png" width="21" height="22" alt="<a href='#' class='prev'>ссылка</a>"/>
                 </a>
             </h4>
-            <strong>1 день</strong>
+            <strong data-bind="text: days"></strong>
             <h4>
                 Стоимость:
                 <a href="#" class="help">
                     <img src="../../../images/icon01.png" width="21" height="22" alt="<a href='#' class='prev'>ссылка</a>"/>
                 </a>
             </h4>
-            <strong>4950руб.</strong>
+            <strong><span data-bind="text: price"></span> руб.</strong>
         </div>
         <div class="info-block">
             <div class="video-info">
@@ -38,7 +38,7 @@
                                          alt="<a href='#' class='prev'>ссылка</a>"/>
                                 </a>
 							</span>
-                <span>01мин : 44сек.</span>
+                <span data-bind="text: time"></span>
             </div>
             <ul>
                 <li>

@@ -72,7 +72,8 @@
 
                             <span class="upload file" data-bind="visible: !loader() && !loaded()">
 
-                                <input class="file-input-area" name="UploadForm[image]" onchange="Video.loadFile(event);"
+                                <input class="file-input-area" name="UploadForm[image]"
+                                       onchange="Video.loadFile(event);"
                                        data-bind="attr: {id: 'file_' + getID()}" type="file" value="Browse..."/>
 
                                 <a class="button" href="#">ЗАГРУЗИТЬ</a>
@@ -81,13 +82,13 @@
                         </div>
 
                         <div class="col2">
-                            <textarea class="textarea2" cols="30" rows="10"></textarea>
-                            <span class="symbols">235 знаков</span>
+                            <textarea class="textarea2" cols="30" rows="10" data-bind="value: text, valueUpdate: 'afterkeydown'"></textarea>
+                            <span class="symbols"><span data-bind="text: words_count"></span> слов</span>
                         </div>
 
                         <div class="col3">
-                            <textarea class="textarea3" cols="30" rows="10"></textarea>
-                            <span class="symbols">105 знаков</span>
+                            <textarea class="textarea3" cols="30" rows="10" data-bind="value: speaker_text, valueUpdate: 'afterkeydown'"></textarea>
+                            <span class="symbols"><span data-bind="text: speaker_words_count"></span> слов</span>
                         </div>
 
                     </div>
