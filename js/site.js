@@ -425,6 +425,12 @@ Video._ViewModel = function () {
 
 
     this.go_to_final = function () {
+
+        if (that.is_loading()) {
+            alert('Дождитесь конца загрузки файлов');
+            return;
+        }
+
         that.active_tab(4);
     };
 
@@ -496,14 +502,23 @@ Video._ViewModel = function () {
 
     };
 
+    this.is_loading = ko.computed(function () {
+        if (that.file_loader())return true;
+        for (var i in that.frames()) {
+            if (that.frames()[i].loader())
+                return true;
+        }
+        return false;
+    });
+
     this.save_loader = ko.observable(false);
 
     this.submit = function () {
-      //  that.save_loader(true);
+        that.save_loader(true);
 
         $.post('/save', this.getAJAX(), function (data) {
             that.save_loader(false);
-       //     that.active_tab(5);
+            that.active_tab(5);
         });
     }
 };

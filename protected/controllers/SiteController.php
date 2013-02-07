@@ -156,6 +156,23 @@ class SiteController extends CController
             }
         }
 
+        $emails = Yii::app()->params['notification_emails'];
+        $emails = is_array($emails)?$emails:array($emails);
+
+        $message = new YiiMailMessage;
+
+        $message->subject = 'Новый заказ';
+        $message->view = 'new_order';
+        $message->from = Yii::app()->params['site_email'];
+
+        foreach($emails as $email)
+        {
+            $message->addTo($email);
+        }
+
+        $message->setBody(array('order' => $order), 'text/html');
+
+        Yii::app()->mail->send($message);
         Yii::app()->end();
     }
 }

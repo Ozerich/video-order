@@ -6,7 +6,7 @@
     <img src="/images/page-loader.gif"/>
 </div>
 
-<div class="frames-block" data-bind="foreach: frames">
+<div class="frames-block">
     <div class="fill-block">
         <h2>
             Кадры вашего ролика:
@@ -46,42 +46,44 @@
         </div>
     </div>
 
-    <div class="still-block">
-        <div class="t">&nbsp;</div>
-        <div class="c">
+    <div data-bind="foreach: frames">
 
-            <h2>
+        <div class="still-block">
+            <div class="t">&nbsp;</div>
+            <div class="c">
+
+                <h2>
                         <span><span class="frame-number"><!--ko text: $index() + 1 --><!--/ko--> кадр</span>
                         </span>
-            </h2>
+                </h2>
 
-            <div class="content-block active">
+                <div class="content-block active">
 
-                <div class="col1">
+                    <div class="col1">
 
-                    <div class="visual">
-                        <a href="#" data-bind="attr:{href: image()}">
-                            <img data-bind="attr:{src: preview_image()}" width="236" height="132"/>
-                        </a>
+                        <div class="visual">
+                            <a href="#" data-bind="attr:{href: image()}">
+                                <img data-bind="attr:{src: preview_image()}" width="236" height="132"/>
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <div class="col2">
+                        <p data-bind="text: text"></p>
+                    </div>
+
+                    <div class="col3">
+                        <p data-bind="text: speaker_text"></p>
                     </div>
 
                 </div>
-
-                <div class="col2">
-                    <p data-bind="text: text"></p>
-                </div>
-
-                <div class="col3">
-                    <p data-bind="text: speaker_text"></p>
-                </div>
-
             </div>
-        </div>
 
-        <div class="b">&nbsp;</div>
+            <div class="b">&nbsp;</div>
+        </div>
     </div>
 </div>
-
 <div class="final-block">
     <p>Если все верно - введите ваш настоящий электронный адрес, имя и любую другую информацию</p>
 

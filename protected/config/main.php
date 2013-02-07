@@ -54,7 +54,6 @@ return array(
                 'admin/orders/<id:\d+>' => 'admin/orders/item/item_id/<id>',
 
 
-
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
@@ -64,7 +63,7 @@ return array(
         'mail' => array(
             'class' => 'application.extensions.yii-mail.YiiMail',
             'transportType' => 'php',
-            'viewPath' => 'application.views.mail',
+            'viewPath' => 'application.views.email',
             'logging' => true,
             'dryRun' => false
         ),
@@ -97,6 +96,8 @@ return array(
         'directory_voices' => '/uploads/mp3',
         'directory_music' => '/uploads/mp3',
         'directory_user_uploads' => '/uploads/user',
-        'admin_password' => '12345'
+        'admin_password' => '12345',
+        'notification_emails' => array('mail@bannerstudio.ru', 'ozicoder@gmail.com'),
+        'site_email' => 'mail@bannerstudio.ru',
     ),
 );
