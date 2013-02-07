@@ -4,6 +4,6 @@ class DefaultController extends AdminController
 {
     public function actionIndex()
     {
-        $this->render('index');
+        $this->redirect('/admin/orders');
     }
 }

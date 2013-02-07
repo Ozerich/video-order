@@ -35,7 +35,12 @@ class Order extends CActiveRecord
 
     public function relations()
     {
-        return array();
+        return array(
+            'frames' => array(self::HAS_MANY, 'OrderFrame', 'order_id'),
+            'voice' => array(self::BELONGS_TO , 'Voice', 'voice_id'),
+            'design' => array(self::BELONGS_TO , 'Design', 'design_id'),
+            'music' => array(self::BELONGS_TO , 'Music', 'music_id')
+        );
     }
 
     public function attributeLabels()
@@ -52,4 +57,17 @@ class Order extends CActiveRecord
             'created' => 'Created',
         );
     }
+
+    public function defaultScope()
+    {
+        return array(
+            'order' => 'created DESC',
+        );
+    }
+
+    public function afterFind(){
+        $this->created = date('d.m.Y H:i', strtotime($this->created));
+        $this->music_file = $this->music_file ? Yii::app()->params['directory_user_uploads'].'/'.$this->music_file : '';
+    }
+
 }

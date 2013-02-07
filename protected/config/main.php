@@ -5,6 +5,7 @@ return array(
     'name' => 'Video Order',
 
     'preload' => array('log'),
+    'language' => 'ru',
 
     'import' => array(
         'application.models.*',
@@ -35,6 +36,25 @@ return array(
                 'upload' => 'site/upload',
                 'upload_mp3' => 'site/upload_mp3',
                 'save' => 'site/save',
+
+
+                'admin/designs/delete/<id:\d+>' => 'admin/designs/delete/id/<id>',
+                'admin/designs/<id:\d+>' => 'admin/designs/item/item_id/<id>',
+                'admin/designs/add' => 'admin/designs/item',
+
+                'admin/voices/delete/<id:\d+>' => 'admin/voices/delete/id/<id>',
+                'admin/voices/<id:\d+>' => 'admin/voices/item/item_id/<id>',
+                'admin/voices/add' => 'admin/voices/item',
+
+                'admin/music/delete/<id:\d+>' => 'admin/music/delete/id/<id>',
+                'admin/music/<id:\d+>' => 'admin/music/item/item_id/<id>',
+                'admin/music/add' => 'admin/music/item',
+
+                'admin/orders/delete/<id:\d+>' => 'admin/orders/delete/id/<id>',
+                'admin/orders/<id:\d+>' => 'admin/orders/item/item_id/<id>',
+
+
+
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',

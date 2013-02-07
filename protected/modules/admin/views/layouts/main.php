@@ -12,13 +12,42 @@
     <script type="text/javascript" src="/js/jquery-1.9.0.min.js"></script>
     <script type="text/javascript" src="/js/less-1.3.3.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/soundmanager2-nodebug-jsmin.js"></script>
+    <script type="text/javascript" src="/js/mp3-player-button.js"></script>
+
+    <script>
+        $(function(){
+            var basicMP3Player = new BasicMP3Player();
+        });
+    </script>
 </head>
 
 <body>
 <div id="container">
 
     <header id="content-header">
-        <h1>Video Control Panel</h1>
+        <ul class="quick-actions">
+            <li>
+                <a href="/admin/orders">
+                    Заказы
+                </a>
+            </li>
+            <li>
+                <a href="/admin/music">
+                    Музыка
+                </a>
+            </li>
+            <li>
+                <a href="/admin/designs">
+                    Дизайны
+                </a>
+            </li>
+            <li>
+                <a href="/admin/voices">
+                    Голос
+                </a>
+            </li>
+        </ul>
     </header>
 
     <div id="breadcrumb">

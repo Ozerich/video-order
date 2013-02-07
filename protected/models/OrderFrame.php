@@ -42,4 +42,10 @@ class OrderFrame extends CActiveRecord
 		);
 	}
 
+    public function getImage($preview = false)
+    {
+        return Yii::app()->params['directory_user_uploads'] . '/' . ($preview ? $this->preview_image : $this->image);
+    }
+
+
 }

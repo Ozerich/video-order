@@ -13,7 +13,7 @@ class SiteController extends CController
     {
 
         $designs = array();
-        foreach (Design::model()->findAll() as $design) {
+        foreach (Design::model()->findAllByAttributes(array('visible' => 1)) as $design) {
             $designs[] = array(
                 'ID' => $design->id,
                 'Name' => $design->name,
@@ -23,7 +23,7 @@ class SiteController extends CController
         }
 
         $voices = array();
-        foreach (Voice::model()->findAll() as $voice) {
+        foreach (Voice::model()->findAllByAttributes(array('visible' => 1)) as $voice) {
             $voices[] = array(
                 'ID' => $voice->id,
                 'Name' => $voice->name,
@@ -33,7 +33,7 @@ class SiteController extends CController
         }
 
         $music = array();
-        foreach (Music::model()->findAll() as $_music) {
+        foreach (Music::model()->findAllByAttributes(array('visible' => 1)) as $_music) {
             $music[] = array(
                 'ID' => $_music->id,
                 'Name' => $_music->name,
