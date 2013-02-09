@@ -3,11 +3,11 @@
         <span class="icon"><i class="icon-calendar"></i></span>
         <h5>Дизайны</h5>
         <div class="buttons">
-            <a id="add-event" href="/admin/design/add" class="btn btn-success btn-mini"><i class="icon-plus icon-white"></i> Добавить дизайн</a>
+            <a id="add-event" href="/reelconfig/design/add" class="btn btn-success btn-mini"><i class="icon-plus icon-white"></i> Добавить дизайн</a>
         </div>
     </div>
     <div class="widget-content">
-        <form action="/admin/designs/save_order" method="post">
+        <form action="/reelconfig/designs/save_order" method="post">
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
@@ -26,8 +26,8 @@
                 <td><?=$item->name?></td>
                 <td class="preview-column"><img src="<?=$item->getImageUrl()?>"/></td>
                 <td class="actions-column">
-                    <a href="/admin/design/<?=$item->id?>" class="btn btn-primary"><i class="icon-pencil icon-white"></i> Edit</a>
-                    <a href="/admin/design/delete/<?=$item->id?>" onclick="return confirm('Вы уверены что хотите удалить дизайн?');" class="btn btn-danger"><i class="icon-remove icon-white"></i> Delete</a>
+                    <a href="/reelconfig/design/<?=$item->id?>" class="btn btn-primary"><i class="icon-pencil icon-white"></i> Edit</a>
+                    <a href="/reelconfig/design/delete/<?=$item->id?>" onclick="return confirm('Вы уверены что хотите удалить дизайн?');" class="btn btn-danger"><i class="icon-remove icon-white"></i> Delete</a>
                 </td>
             </tr>
                 <? endforeach; ?>

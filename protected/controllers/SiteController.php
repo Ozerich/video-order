@@ -105,7 +105,7 @@ class SiteController extends CController
     }
 
 
-    private function processFile($file)
+    private function processFile($file, $prefix = "")
     {
         if (empty($file)) return '';
 
@@ -113,8 +113,11 @@ class SiteController extends CController
 
         if (!file_exists($old_file)) return "";
 
-        $filename = substr($old_file, strrpos($old_file, '/') + 1);
-        $new_file = $_SERVER['DOCUMENT_ROOT'] . '/' . Yii::app()->params['directory_user_uploads'] . '/' . $filename;
+        if(strlen($prefix) == 2)$prefix = "0".$prefix;
+        if(strlen($prefix) == 1)$prefix = "00".$prefix;
+
+        $filename =  ($prefix ? $prefix."_____________" : "").substr($old_file, strrpos($old_file, '/') + 1);
+        $new_file = $_SERVER['DOCUMENT_ROOT'] . '/' . Yii::app()->params['directory_user_uploads'] . '/' .$filename;
 
         if (copy($old_file, $new_file)) {
             unlink($old_file);
@@ -142,15 +145,15 @@ class SiteController extends CController
         $order->save();
 
         if (isset($_POST['Frames'])) {
-            foreach ($_POST['Frames'] as $_frame) {
+            foreach ($_POST['Frames'] as $num => $_frame) {
                 $frame = new OrderFrame();
 
                 $frame->order_id = $order->id;
 
                 $frame->text = $_frame['Text'];
                 $frame->speaker_text = $_frame['Speaker_Text'];
-                $frame->image = $this->processFile($_frame['Image']);
-                $frame->preview_image = $this->processFile($_frame['Preview']);
+                $frame->image = $this->processFile($_frame['Image'], $num + 1);
+                $frame->preview_image = $this->processFile($_frame['Preview'], $num + 1);
 
                 $frame->save();
             }

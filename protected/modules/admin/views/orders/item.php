@@ -12,7 +12,7 @@
             <div class="span4">
                 <h4>Дизайн</h4>
                 <? if ($model->design): ?>
-                <a class="param-link" href="/admin/designs/<?=$model->design->id?>"><?=$model->design->name?></a>
+                <a class="param-link" href="/reelconfig/designs/<?=$model->design->id?>"><?=$model->design->name?></a>
                 <img src="<?=$model->design->getImageUrl()?>"/>
                 <? endif; ?>
             </div>
@@ -20,7 +20,7 @@
             <div class="span4">
                 <h4>Диктор</h4>
                 <? if ($model->voice): ?>
-                <a class="param-link" href="/admin/voices/<?=$model->voice->id?>"><?=$model->voice->name?></a>
+                <a class="param-link" href="/reelconfig/voices/<?=$model->voice->id?>"><?=$model->voice->name?></a>
                 <a href="<?=$model->voice->getFileUrl();?>" class="sm2_button"></a>
                 <? endif; ?>
             </div>
@@ -28,7 +28,7 @@
             <div class="span4">
                 <h4>Музыка</h4>
                 <? if ($model->music): ?>
-                <a class="param-link" href="/admin/music/<?=$model->music->id?>"><?=$model->music->name?></a>
+                <a class="param-link" href="/reelconfig/music/<?=$model->music->id?>"><?=$model->music->name?></a>
                 <a href="<?=$model->music->getFileUrl();?>" class="sm2_button"></a>
                 <? elseif ($model->music_file): ?>
                 <a class="param-link" target="_blank" href="<?=$model->music_file?>">Пользовательский</a>
@@ -77,7 +77,8 @@
                 </div>
                 <div class="frame-content  row-status">
                     <div class="span4">
-                        <a href="<?=$frame->getImage()?>" target="_blank"><img src="<?=$frame->getImage(true)?>"/></a>
+                        <a href="<?=$frame->getImage()?>" target="_blank"><img src="<?=$frame->getImage()?>"/></a>
+						<img src="<?=$frame->getImage(true);?>" style="display:none"/>
                     </div>
                     <div class="span4">
                         <p><?=$frame->speaker_text?></p>

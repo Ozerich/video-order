@@ -15,7 +15,7 @@ class AuthController extends AdminController
             if ($identity->errorCode === UserIdentity::ERROR_NONE) {
                 echo json_encode(array(
                     'error' => 0,
-                    'url' => '/admin/'
+                    'url' => '/reelconfig/'
                 ));
             } else {
                 echo json_encode(array(

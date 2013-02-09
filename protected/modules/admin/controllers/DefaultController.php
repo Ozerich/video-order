@@ -4,6 +4,6 @@ class DefaultController extends AdminController
 {
     public function actionIndex()
     {
-        $this->redirect('/admin/orders');
+        $this->redirect('/reelconfig/orders');
     }
 }

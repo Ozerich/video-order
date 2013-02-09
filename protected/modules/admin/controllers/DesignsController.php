@@ -4,6 +4,33 @@ class DesignsController extends AdminController
 {
     public function actionIndex()
     {
+
+        if ($_POST) {
+
+            if (isset($_POST['save_order'])) {
+                foreach (Design::model()->findAll() as $design) {
+
+                    if (isset($_POST['pos'][$design->id])) {
+                        $design->pos = $_POST['pos'][$design->id];
+                    }
+
+                    $design->visible = isset($_POST['visible'][$design->id]) ? 1 : 0;
+                    $design->save();
+                }
+            }
+
+            if (isset($_POST['delete_all'])) {
+                if (isset($_POST['check'])) {
+                    foreach ($_POST['check'] as $ind => $t) {
+                        $design = Design::model()->findByPk($ind);
+                        $design->delete();
+                    }
+                }
+            }
+
+            $this->redirect('/reelconfig/designs');
+        }
+
         $this->breadcrumbs[] = array('label' => 'Дизайны', 'url' => 'designs');
 
         $this->render('/_list', array(
@@ -23,25 +50,9 @@ class DesignsController extends AdminController
             $item->delete();
         }
 
-        $this->redirect('/admin/designs');
+        $this->redirect('/reelconfig/designs');
     }
 
-    public function actionSave_order()
-    {
-        if ($_POST) {
-            foreach (Design::model()->findAll() as $design) {
-
-                if (isset($_POST['pos'][$design->id])) {
-                    $design->pos = $_POST['pos'][$design->id];
-                }
-
-                $design->visible = isset($_POST['visible'][$design->id]) ? 1 : 0;
-                $design->save();
-            }
-        }
-
-        $this->redirect('/admin/designs');
-    }
 
     public function actionItem($item_id = 0)
     {
@@ -71,8 +82,10 @@ class DesignsController extends AdminController
                 }
             }
 
+            if ($model->isNewRecord) $model->visible = 1;
+
             if ($model->save()) {
-                $this->redirect('/admin/designs');
+                $this->redirect(isset($_POST['save_and_add']) ? '/reelconfig/designs/add' : '/reelconfig/designs');
             }
         }
 

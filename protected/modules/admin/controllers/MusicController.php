@@ -4,6 +4,32 @@ class MusicController extends AdminController
 {
     public function actionIndex()
     {
+        if ($_POST) {
+
+            if (isset($_POST['save_order'])) {
+                foreach (Music::model()->findAll() as $item) {
+
+                    if (isset($_POST['pos'][$item->id])) {
+                        $item->pos = $_POST['pos'][$item->id];
+                    }
+
+                    $item->visible = isset($_POST['visible'][$item->id]) ? 1 : 0;
+                    $item->save();
+                }
+            }
+
+            if (isset($_POST['delete_all'])) {
+                if (isset($_POST['check'])) {
+                    foreach ($_POST['check'] as $ind => $t) {
+                        $item = Music::model()->findByPk($ind);
+                        $item->delete();
+                    }
+                }
+            }
+
+            $this->redirect('/reelconfig/music');
+        }
+
         $this->breadcrumbs[] = array('label' => 'Музыка', 'url' => 'music');
 
         $this->render('/_list', array(
@@ -23,25 +49,10 @@ class MusicController extends AdminController
             $item->delete();
         }
 
-        $this->redirect('/admin/musics');
+        $this->redirect('/reelconfig/music');
     }
 
-    public function actionSave_order()
-    {
-        if ($_POST) {
-            foreach (Music::model()->findAll() as $item) {
 
-                if (isset($_POST['pos'][$item->id])) {
-                    $item->pos = $_POST['pos'][$item->id];
-                }
-
-                $item->visible = isset($_POST['visible'][$item->id]) ? 1 : 0;
-                $item->save();
-            }
-        }
-
-        $this->redirect('/admin/music');
-    }
 
 
     public function actionItem($item_id = 0)
@@ -54,6 +65,7 @@ class MusicController extends AdminController
         if ($_POST) {
 
             $model->attributes = $_POST['Music'];
+            if ($model->isNewRecord) $model->visible = 1;
 
             $uploaded_file = CUploadedFile::getInstance($model, 'file');
             if ($uploaded_file) {
@@ -69,14 +81,14 @@ class MusicController extends AdminController
                     }
 
                     if ($model->save()) {
-                        $this->redirect('/admin/music');
+                        $this->redirect(isset($_POST['save_and_add']) ? '/reelconfig/music/add' : '/reelconfig/music');
                     }
                 }
                 else{
                     $model->file = $old_file;
                 }
             } else if ($model->save()) {
-                $this->redirect('/admin/music');
+                $this->redirect(isset($_POST['save_and_add']) ? '/reelconfig/music/add' : '/reelconfig/music');
             }
         }
 

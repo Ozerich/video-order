@@ -3,7 +3,7 @@
         <span class="icon"><i class="icon-calendar"></i></span>
         <h5>Музыка</h5>
         <div class="buttons">
-            <a id="add-event" href="/admin/music/add" class="btn btn-success btn-mini"><i class="icon-plus icon-white"></i> Добавить музыку</a>
+            <a id="add-event" href="/reelconfig/music/add" class="btn btn-success btn-mini"><i class="icon-plus icon-white"></i> Добавить музыку</a>
         </div>
     </div>
     <div class="widget-content">
@@ -25,8 +25,8 @@
                 <td><?=$item->name?></td>
                 <td><img src="<?=$item->getImageUrl()?>"/></td>
                 <td class="actions-column">
-                    <a href="/admin/design/<?=$item->id?>" class="btn btn-primary"><i class="icon-pencil icon-white"></i> Edit</a>
-                    <a href="/admin/design/delete/<?=$item->id?>" onclick="return confirm('Вы уверены что хотите удалить дизайн?');" class="btn btn-danger"><i class="icon-remove icon-white"></i> Delete</a>
+                    <a href="/reelconfig/design/<?=$item->id?>" class="btn btn-primary"><i class="icon-pencil icon-white"></i> Edit</a>
+                    <a href="/reelconfig/design/delete/<?=$item->id?>" onclick="return confirm('Вы уверены что хотите удалить дизайн?');" class="btn btn-danger"><i class="icon-remove icon-white"></i> Delete</a>
                 </td>
             </tr>
                 <? endforeach; ?>

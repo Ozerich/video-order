@@ -38,20 +38,24 @@ return array(
                 'save' => 'site/save',
 
 
-                'admin/designs/delete/<id:\d+>' => 'admin/designs/delete/id/<id>',
-                'admin/designs/<id:\d+>' => 'admin/designs/item/item_id/<id>',
-                'admin/designs/add' => 'admin/designs/item',
+                'reelconfig/designs/delete/<id:\d+>' => 'admin/designs/delete/id/<id>',
+                'reelconfig/designs/<id:\d+>' => 'admin/designs/item/item_id/<id>',
+                'reelconfig/designs/add' => 'admin/designs/item',
 
-                'admin/voices/delete/<id:\d+>' => 'admin/voices/delete/id/<id>',
-                'admin/voices/<id:\d+>' => 'admin/voices/item/item_id/<id>',
-                'admin/voices/add' => 'admin/voices/item',
+                'reelconfig/voices/delete/<id:\d+>' => 'admin/voices/delete/id/<id>',
+                'reelconfig/voices/<id:\d+>' => 'admin/voices/item/item_id/<id>',
+                'reelconfig/voices/add' => 'admin/voices/item',
 
-                'admin/music/delete/<id:\d+>' => 'admin/music/delete/id/<id>',
-                'admin/music/<id:\d+>' => 'admin/music/item/item_id/<id>',
-                'admin/music/add' => 'admin/music/item',
+                'reelconfig/music/delete/<id:\d+>' => 'admin/music/delete/id/<id>',
+                'reelconfig/music/<id:\d+>' => 'admin/music/item/item_id/<id>',
+                'reelconfig/music/add' => 'admin/music/item',
 
-                'admin/orders/delete/<id:\d+>' => 'admin/orders/delete/id/<id>',
-                'admin/orders/<id:\d+>' => 'admin/orders/item/item_id/<id>',
+                'reelconfig/orders/delete/<id:\d+>' => 'admin/orders/delete/id/<id>',
+                'reelconfig/orders/<id:\d+>' => 'admin/orders/item/item_id/<id>',
+
+                'reelconfig' => 'admin',
+                'reelconfig/<controller:\w+>' => 'admin/<controller>/index',
+                'reelconfig/<controller:\w+>/<action:\w+>/<id:\d+>' => 'admin/<controller>/<action>',
 
 
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
@@ -97,7 +101,8 @@ return array(
         'directory_music' => '/uploads/mp3',
         'directory_user_uploads' => '/uploads/user',
         'admin_password' => '12345',
-        'notification_emails' => array('mail@bannerstudio.ru', 'ozicoder@gmail.com'),
-        'site_email' => 'mail@bannerstudio.ru',
+		'notification_emails' => array('mail@bannerstudio.ru', 'ozicoder@gmail.com'),
+		'site_email' => 'mail@bannerstudio.ru',
+		
     ),
 );

@@ -28,22 +28,22 @@
     <header id="content-header">
         <ul class="quick-actions">
             <li>
-                <a href="/admin/orders">
+                <a href="/reelconfig/orders">
                     Заказы
                 </a>
             </li>
             <li>
-                <a href="/admin/music">
+                <a href="/reelconfig/music">
                     Музыка
                 </a>
             </li>
             <li>
-                <a href="/admin/designs">
+                <a href="/reelconfig/designs">
                     Дизайны
                 </a>
             </li>
             <li>
-                <a href="/admin/voices">
+                <a href="/reelconfig/voices">
                     Голос
                 </a>
             </li>
@@ -52,7 +52,7 @@
 
     <div id="breadcrumb">
         <? foreach($this->breadcrumbs as $ind => $breadcrumb): ?>
-            <a href="/admin/<?=$breadcrumb['url']; ?>" <?=$ind == count($this->breadcrumbs) - 1 ? 'class="current"' : ''?>>
+            <a href="/reelconfig/<?=$breadcrumb['url']; ?>" <?=$ind == count($this->breadcrumbs) - 1 ? 'class="current"' : ''?>>
                 <? if(isset($breadcrumb['icon'])): ?>
                     <i class="icon-<?=$breadcrumb['icon'];?>"></i>
                         <? endif; ?>

@@ -17,7 +17,7 @@
             $('.error').hide();
 
             $('#submit').click(function () {
-                $.post('/admin/auth', {password:$('#password').val()}, function (data) {
+                $.post('/reelconfig/auth', {password:$('#password').val()}, function (data) {
                     data = jQuery.parseJSON(data);
                     if (data.error == 0) {
                         document.location = data.url;

@@ -30,7 +30,8 @@ class Voice extends CActiveRecord
         return array(
             'name' => 'Название голоса',
             'file' => 'MP3 файл',
-            'sex' => 'Тип'
+            'sex' => 'Тип',
+            'description' => 'Примечание'
         );
     }
 
@@ -38,6 +39,7 @@ class Voice extends CActiveRecord
     {
         return array(
             array('name, sex', 'required'),
+            array('description', 'safe'),
 
             array('file', 'file', 'types' => 'mp3', 'allowEmpty' => false, 'on' => 'insert'),
             array('file', 'file', 'types' => 'mp3', 'allowEmpty' => true, 'on' => 'update'),

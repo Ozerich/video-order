@@ -4,6 +4,28 @@ class VoicesController extends AdminController
 {
     public function actionIndex()
     {
+        if (isset($_POST['save_order'])) {
+            foreach (Voice::model()->findAll() as $item) {
+
+                if (isset($_POST['pos'][$item->id])) {
+                    $item->pos = $_POST['pos'][$item->id];
+                }
+
+                $item->visible = isset($_POST['visible'][$item->id]) ? 1 : 0;
+                $item->save();
+            }
+        }
+
+        if (isset($_POST['delete_all'])) {
+            if (isset($_POST['check'])) {
+                foreach ($_POST['check'] as $ind => $t) {
+                    $item = Voice::model()->findByPk($ind);
+                    $item->delete();
+                }
+            }
+        }
+
+
         $this->breadcrumbs[] = array('label' => 'Голосы', 'url' => 'Голосы');
 
         $this->render('/_list', array(
@@ -23,24 +45,7 @@ class VoicesController extends AdminController
             $item->delete();
         }
 
-        $this->redirect('/admin/voices');
-    }
-
-    public function actionSave_order()
-    {
-        if ($_POST) {
-            foreach (Voice::model()->findAll() as $item) {
-
-                if (isset($_POST['pos'][$item->id])) {
-                    $item->pos = $_POST['pos'][$item->id];
-                }
-
-                $item->visible = isset($_POST['visible'][$item->id]) ? 1 : 0;
-                $item->save();
-            }
-        }
-
-        $this->redirect('/admin/voices');
+        $this->redirect('/reelconfig/voices');
     }
 
 
@@ -54,6 +59,8 @@ class VoicesController extends AdminController
         if ($_POST) {
 
             $model->attributes = $_POST['Voice'];
+
+            if ($model->isNewRecord) $model->visible = 1;
 
             $uploaded_file = CUploadedFile::getInstance($model, 'file');
             if ($uploaded_file) {
@@ -69,14 +76,14 @@ class VoicesController extends AdminController
                     }
 
                     if ($model->save()) {
-                        $this->redirect('/admin/voices');
+                        $this->redirect(isset($_POST['save_and_add']) ? '/reelconfig/voices/add' : '/reelconfig/voices');
                     }
                 }
                 else{
                     $model->file = $old_file;
                 }
             } else if ($model->save()) {
-                $this->redirect('/admin/voices');
+                $this->redirect(isset($_POST['save_and_add']) ? '/reelconfig/voices/add' : '/reelconfig/voices');
             }
         }
 

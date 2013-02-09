@@ -541,6 +541,7 @@ Video.loadMusic = function () {
 
     Video.ViewModel.file_loader(true);
 
+
     $.ajaxFileUpload({
         url:'/upload_mp3',
         secureuri:false,
@@ -557,7 +558,7 @@ Video.loadMusic = function () {
                     Video.ViewModel.custom_file(data.file);
                     Video.ViewModel.custom_file_realname(realname);
                     Video.ViewModel.selectedMusic(null);
-                    $('.gallery-holder.sound .radioAreaChecked').removeClass('radioAreaChecked').addClass('radioArea');
+                    $('.gallery-holder.sound').last().find('.radioAreaChecked').removeClass('radioAreaChecked').addClass('radioArea');
 
 
                 }
@@ -568,6 +569,8 @@ Video.loadMusic = function () {
         }
     });
 };
+
+var frame_block;
 
 Video.loadFile = function (event) {
 
@@ -582,34 +585,33 @@ Video.loadFile = function (event) {
 
 
     var id = $(event.target).attr('id').substr(5);
+    frame_block = $(event.target).parents('.col1').find('.visual a');
     var frame = Video.ViewModel.findFrame(id);
     frame.loader(true);
 
-    $.ajaxFileUpload({
-        url:'/upload',
-        secureuri:false,
-        fileElementId:$(event.target).parents('.col1').find('input[type=file]').attr('id'),
-        dataType:'json',
-        success:function (data, status) {
-            if (typeof(data.error) != 'undefined') {
-                if (data.error != '') {
-                    alert(data.error);
-                } else {
+        $.ajaxFileUpload({
+            url:'/upload',
+            secureuri:false,
+            fileElementId:$(event.target).parents('.col1').find('input[type=file]').attr('id'),
+            dataType:'json',
+            success:function (data, status) {
+                if (typeof(data.error) != 'undefined') {
+                    if (data.error != '') {
+                        alert(data.error);
+                    } else {
 
-                    frame.loader(false);
-                    frame.loaded(true);
-                    frame.setImage(data.image);
-                    frame.setPreviewImage(data.preview_image);
+                        frame.loader(false);
+                        frame.loaded(true);
+                        frame.setImage(data.image);
+                        frame.setPreviewImage(data.preview_image);
 
-                    $(event.target).parents('.col1').find('.visual a').fancybox();
-
+                    }
                 }
+            },
+            error:function (data, status, e) {
+                alert(e);
             }
-        },
-        error:function (data, status, e) {
-            alert(e);
-        }
-    });
+        });
 
 
 };

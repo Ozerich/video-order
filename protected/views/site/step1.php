@@ -39,8 +39,8 @@
                                     </div>
                                 </div>
 
-                                <div class="check-holder" data-bind="click: $root.selectDesign">
-                                    <input type="radio" name="radio"/>
+                                <div class="check-holder">
+                                    <div class="radio" data-bind="click: $root.selectDesign"><input type="radio" name="radio"/></div>
                                 </div>
                             </li>
                         </ul>

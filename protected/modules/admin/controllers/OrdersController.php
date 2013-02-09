@@ -4,6 +4,15 @@ class OrdersController extends AdminController
 {
     public function actionIndex()
     {
+        if (isset($_POST['delete_all'])) {
+            if (isset($_POST['check'])) {
+                foreach ($_POST['check'] as $ind => $t) {
+                    $item = Order::model()->findByPk($ind);
+                    $item->delete();
+                }
+            }
+        }
+
         $this->breadcrumbs[] = array('label' => 'Заказы', 'url' => 'orders');
 
         $this->render('index', array('items' => Order::model()->findAll()));
@@ -17,7 +26,7 @@ class OrdersController extends AdminController
             $item->delete();
         }
 
-        $this->redirect('/admin/orders');
+        $this->redirect('/reelconfig/orders');
     }
 
 

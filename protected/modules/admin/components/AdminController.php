@@ -16,7 +16,7 @@ class AdminController extends CController
     {
         if ($action->controller->id != 'auth') {
             if (Yii::app()->user->isGuest) {
-                $this->redirect('/admin/auth/');
+                $this->redirect('/reelconfig/auth/');
             }
         }
         return true;

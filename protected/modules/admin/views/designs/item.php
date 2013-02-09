@@ -58,6 +58,9 @@
 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary"><?=$model->isNewRecord ? 'Добавить' : 'Сохранить'?></button>
+                    <? if($model->isNewRecord): ?>
+                    <input type="submit" class="btn btn-primary" name="save_and_add" value="Добавить и еще раз"/>
+                    <? endif; ?>
                 </div>
                 <? $this->endWidget(); ?>
         </div>
