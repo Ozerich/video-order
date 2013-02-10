@@ -1,3 +1,8 @@
+function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
 ko.bindingHandlers.gallery = {
     update:function (element, valueAccessor) {
 
@@ -530,7 +535,14 @@ Video._ViewModel = function () {
     this.save_loader = ko.observable(false);
 
     this.submit = function () {
+
+        if(!validateEmail(this.email())){
+            alert('Неправильный формат email');
+            return false;
+        }
+
         that.save_loader(true);
+
 
         $.post('/save', this.getAJAX(), function (data) {
             that.save_loader(false);

@@ -68,8 +68,8 @@
                             </div>
 
                             <div class="visual" data-bind="visible: loaded() && !loader()">
-                                <a href="#" data-bind="attr:{href: image()}">
-                                    <img data-bind="attr:{src: preview_image()}" width="236" height="132"/>
+                                <a href="#" target="_blank" data-bind="attr:{href: image()}">
+                                    <img data-bind="attr:{src: image()}" width="236" height="132"/>
                                 </a>
                             </div>
 

@@ -70,7 +70,7 @@
             <div class="frame-columns row-status">
                 <div class="span4">Картинка</div>
                 <div class="span4">Голос диктора</div>
-                <div class="span4">Голос в фоне</div>
+                <div class="span4">Текст в кадре</div>
 
                 <br clear="all"/>
             </div>
@@ -83,7 +83,6 @@
                 <div class="frame-content  row-status">
                     <div class="span4">
                         <a href="<?=$frame->getImage()?>" target="_blank"><img src="<?=$frame->getImage()?>"/></a>
-						<img src="<?=$frame->getImage(true);?>" style="display:none"/>
                     </div>
                     <div class="span4">
                         <p><?=$frame->speaker_text?></p>
