@@ -113,11 +113,11 @@ class SiteController extends CController
 
         if (!file_exists($old_file)) return "";
 
-        if(strlen($prefix) == 2)$prefix = "0".$prefix;
-        if(strlen($prefix) == 1)$prefix = "00".$prefix;
+        if (strlen($prefix) == 2) $prefix = "0" . $prefix;
+        if (strlen($prefix) == 1) $prefix = "00" . $prefix;
 
-        $filename =  ($prefix ? $prefix."_____________" : "").substr($old_file, strrpos($old_file, '/') + 1);
-        $new_file = $_SERVER['DOCUMENT_ROOT'] . '/' . Yii::app()->params['directory_user_uploads'] . '/' .$filename;
+        $filename = ($prefix ? $prefix . "_____________" : "") . substr($old_file, strrpos($old_file, '/') + 1);
+        $new_file = $_SERVER['DOCUMENT_ROOT'] . '/' . Yii::app()->params['directory_user_uploads'] . '/' . $filename;
 
         if (copy($old_file, $new_file)) {
             unlink($old_file);
@@ -140,7 +140,6 @@ class SiteController extends CController
         $order->email = Yii::app()->request->getPost('Email');
         $order->name = Yii::app()->request->getPost('Name');
         $order->information = Yii::app()->request->getPost('Information');
-        $order->created = time();
 
         $order->save();
 
@@ -160,22 +159,45 @@ class SiteController extends CController
         }
 
         $emails = Yii::app()->params['notification_emails'];
-        $emails = is_array($emails)?$emails:array($emails);
+        $emails = is_array($emails) ? $emails : array($emails);
 
         $message = new YiiMailMessage;
 
         $message->subject = 'Новый заказ';
-        $message->view = 'new_order';
+        $message->view = 'new_order_to_admin';
         $message->from = Yii::app()->params['site_email'];
 
-        foreach($emails as $email)
-        {
+        foreach ($emails as $email) {
             $message->addTo($email);
         }
 
         $message->setBody(array('order' => $order), 'text/html');
 
         Yii::app()->mail->send($message);
+
+        $message = new YiiMailMessage;
+
+        $message->subject = 'Новый заказ';
+        $message->view = 'new_order_to_customer';
+        $message->from = Yii::app()->params['site_email'];
+
+        $message->addTo($order->email);
+
+        $message->setBody(array('order' => $order), 'text/html');
+        Yii::app()->mail->send($message);
+
         Yii::app()->end();
+    }
+
+
+    public function actionOrder($hash = "")
+    {
+
+        $order = Order::model()->findByAttributes(array('hash' => $hash));
+        if (!$order) {
+            throw new CHttpException(404);
+        }
+
+        $this->render('order', array('order' => $order));
     }
 }

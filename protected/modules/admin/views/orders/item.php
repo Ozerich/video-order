@@ -1,9 +1,12 @@
 <div class="widget-box">
     <div class="widget-title">
-                <span class="icon">
-                    <i class="icon-align-justify"></i>
-                </span>
+        <span class="icon">
+            <i class="icon-align-justify"></i>
+        </span>
         <h5>Заказ № <?=$model->id?> (<?=$model->created?>)</h5>
+
+        <div class="public-link"><a href="<?=$model->getPublicLink()?>" target="_blank"><?=$model->getPublicLink()?></a>
+        </div>
     </div>
     <div class="widget-content nopadding item-view">
 
@@ -66,37 +69,61 @@
 
 
         <div class="frames-block">
-            <h4>Кадры:</h4>
-            <div class="frame-columns row-status">
-                <div class="span4">Картинка</div>
-                <div class="span4">Голос диктора</div>
-                <div class="span4">Текст в кадре</div>
+            <form action="" method="post">
+                <h4>Кадры:</h4>
+                <button id="edit_frames" class="btn btn-mini">Редактировать</button>
+                <input id="save_frames" type="submit" class="btn btn-mini" value="Сохранить" style="display: none"/>
 
-                <br clear="all"/>
-            </div>
+                <div class="frame-columns row-status">
+                    <div class="span4">Картинка</div>
+                    <div class="span4">Голос диктора</div>
+                    <div class="span4">Текст в кадре</div>
 
-            <? foreach ($model->frames as $ind => $frame): ?>
-            <div class="frame">
-                <div class="frame-header">
-                    <span>Кадр <?=$ind + 1?></span>
-                </div>
-                <div class="frame-content  row-status">
-                    <div class="span4">
-                        <a href="<?=$frame->getImage()?>" target="_blank"><img src="<?=$frame->getImage()?>"/></a>
-                    </div>
-                    <div class="span4">
-                        <p><?=$frame->speaker_text?></p>
-                    </div>
-                    <div class="span4">
-                        <p><?=$frame->text?></p>
-                    </div>
                     <br clear="all"/>
                 </div>
-            </div>
-            <? endforeach; ?>
+
+                <? foreach ($model->frames as $ind => $frame): ?>
+                <div class="frame">
+                    <div class="frame-header">
+                        <span>Кадр <?=$ind + 1?></span>
+                    </div>
+                    <div class="frame-content  row-status">
+                        <div class="span4">
+                            <a href="<?=$frame->getImage()?>" target="_blank"><img src="<?=$frame->getImage()?>"/></a>
+                        </div>
+                        <div class="span4">
+                            <p><?=$frame->speaker_text?></p>
+                            <textarea name="speaker_text[<?=$frame->id?>]"
+                                      style="display: none"><?=$frame->speaker_text?></textarea>
+                        </div>
+                        <div class="span4">
+                            <p><?=$frame->text?></p>
+                            <textarea name="text[<?=$frame->id?>]" style="display: none"><?=$frame->text?></textarea>
+                        </div>
+                        <br clear="all"/>
+                    </div>
+                </div>
+                <? endforeach; ?>
+            </form>
         </div>
 
     </div>
 
 
 </div>
+
+<script>
+    $(function () {
+
+        $('#edit_frames').click(function () {
+            $('#edit_frames').hide();
+            $('#save_frames').show();
+
+            $('.frame p').hide();
+            $('.frame textarea').show();
+
+            return false;
+        });
+
+    });
+</script>

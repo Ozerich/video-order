@@ -37,7 +37,22 @@ class OrdersController extends AdminController
             throw new CHttpException(404);
         }
 
-        $this->page_title = "№".$model->id.", ".$model->email.", ".$model->name.", ".($model->voice ? $model->voice->description: 'Нет голоса');
+        if ($_POST) {
+            if (isset($_POST['speaker_text']) && isset($_POST['text'])) {
+
+                foreach ($model->frames as $frame) {
+                    $frame->text = $_POST['text'][$frame->id];
+                    $frame->speaker_text = $_POST['speaker_text'][$frame->id];
+                    $frame->save();
+                }
+
+            }
+
+            $this->redirect('/reelconfig/orders/' . $item_id);
+        }
+
+
+        $this->page_title = "№" . $model->id . ", " . $model->email . ", " . $model->name . ", " . ($model->voice ? $model->voice->description : 'Нет голоса');
 
         $this->breadcrumbs[] = array('url' => 'orders', 'label' => 'Все заказы');
         $this->breadcrumbs[] = array('url' => '', 'label' => 'Заказ №' . $item_id);

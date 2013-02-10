@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This is the model class for table "orders".
  *
@@ -13,6 +12,7 @@
  * @property string $name
  * @property string $information
  * @property string $created
+ * @property string $hash
  */
 class Order extends CActiveRecord
 {
@@ -37,9 +37,9 @@ class Order extends CActiveRecord
     {
         return array(
             'frames' => array(self::HAS_MANY, 'OrderFrame', 'order_id'),
-            'voice' => array(self::BELONGS_TO , 'Voice', 'voice_id'),
-            'design' => array(self::BELONGS_TO , 'Design', 'design_id'),
-            'music' => array(self::BELONGS_TO , 'Music', 'music_id')
+            'voice' => array(self::BELONGS_TO, 'Voice', 'voice_id'),
+            'design' => array(self::BELONGS_TO, 'Design', 'design_id'),
+            'music' => array(self::BELONGS_TO, 'Music', 'music_id')
         );
     }
 
@@ -65,9 +65,26 @@ class Order extends CActiveRecord
         );
     }
 
-    public function afterFind(){
+    public function afterFind()
+    {
         $this->created = date('d.m.Y H:i', strtotime($this->created));
-        $this->music_file = $this->music_file ? Yii::app()->params['directory_user_uploads'].'/'.$this->music_file : '';
+        $this->music_file = $this->music_file ? Yii::app()->params['directory_user_uploads'] . '/' . $this->music_file : '';
+    }
+
+    public function beforeSave()
+    {
+        if ($this->isNewRecord) {
+            $this->created = new CDbExpression('NOW()');
+            $this->hash = md5(uniqid() . uniqid());
+        }
+
+        return parent::beforeSave();
+    }
+
+
+    public function getPublicLink()
+    {
+        return $this->hash ? 'http://'.$_SERVER['HTTP_HOST'] . '/order/' . $this->hash : '';
     }
 
 }

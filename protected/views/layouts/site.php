@@ -18,16 +18,16 @@
     <script src="/js/less-1.3.3.min.js"></script>
     <script src="/js/knockout-2.2.1.js"></script>
 
-    <script type="text/javascript" src="js/jquery.gallery.js"></script>
-    <script type="text/javascript" src="js/autoscaling-menu.js"></script>
-    <script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
-    <script type="text/javascript" src="js/jquery.fancybox-media.js"></script>
-    <script type="text/javascript" src="js/jquery.main.js"></script>
-    <script type="text/javascript" src="js/form.js"></script>
-    <script type="text/javascript" src="js/jquery.simpletip-1.3.1.pack.js"></script>
-    <script type="text/javascript" src="js/ajaxfileupload.js"></script>
-    <script type="text/javascript" src="js/soundmanager2-nodebug-jsmin.js"></script>
-    <script type="text/javascript" src="js/mp3-player-button.js"></script>
+    <script type="text/javascript" src="/js/jquery.gallery.js"></script>
+    <script type="text/javascript" src="/js/autoscaling-menu.js"></script>
+    <script type="text/javascript" src="/js/jquery.fancybox.pack.js"></script>
+    <script type="text/javascript" src="/js/jquery.fancybox-media.js"></script>
+    <script type="text/javascript" src="/js/jquery.main.js"></script>
+    <script type="text/javascript" src="/js/form.js"></script>
+    <script type="text/javascript" src="/js/jquery.simpletip-1.3.1.pack.js"></script>
+    <script type="text/javascript" src="/js/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="/js/soundmanager2-nodebug-jsmin.js"></script>
+    <script type="text/javascript" src="/js/mp3-player-button.js"></script>
 
     <script src="/js/site.js"></script>
 

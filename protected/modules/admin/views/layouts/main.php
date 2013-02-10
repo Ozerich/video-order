@@ -19,16 +19,7 @@
         $(function(){
             var basicMP3Player = new BasicMP3Player();
 
-            $(".help").simpletip({
 
-                onBeforeShow:function () {
-                    var text = this.getParent().find('img').attr('alt');
-                    this.getTooltip().html(text);
-                },
-                // Configuration properties
-                content:'My Simpletip',
-                offset:[-$('#page_step_1').offset().left, -$('#page_step_1').offset().top + 5]
-            });
 
         });
     </script>

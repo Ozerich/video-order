@@ -239,11 +239,10 @@ Video._ViewModel = function () {
     };
 
 
-    this.changePage = function(newPage)
-    {
+    this.changePage = function (newPage) {
         $('.page:visible').fadeOut();
         $('.page-' + newPage).fadeIn();
-        jQuery('html, body').animate( { scrollTop: 0 }, 'slow' );
+        jQuery('html, body').animate({ scrollTop:0 }, 'slow');
         this.active_tab(newPage);
     };
 
@@ -340,6 +339,8 @@ Video._ViewModel = function () {
         that.selectedVoice(that.selectedVoice() == null || that.selectedVoice().getID() != voice.getID() ? voice : null);
     };
 
+    var url = window.location.href;
+    var hash = url.indexOf('order/') !== -1 ? url.substr(url.indexOf('order/') + 6) : '';
 
     jQuery.getJSON('/load', function (data) {
 
@@ -362,6 +363,7 @@ Video._ViewModel = function () {
 
             that.addMusic(music.ID, music.Name, music.File);
         }
+
 
         $('.gallery').galleryScroll();
         initCastomForms();
@@ -536,7 +538,7 @@ Video._ViewModel = function () {
 
     this.submit = function () {
 
-        if(!validateEmail(this.email())){
+        if (!validateEmail(this.email())) {
             alert('Неправильный формат email');
             return false;
         }
@@ -646,7 +648,6 @@ Video.loadFile = function (event) {
 
 $(function () {
 
-    ko.applyBindings(Video.ViewModel);
 
     $(".help").simpletip({
         // onShow method - change content of parent element
@@ -656,12 +657,24 @@ $(function () {
         },
         // Configuration properties
         content:'My Simpletip',
-        offset:[-$('#page_step_1').offset().left, -$('#page_step_1').offset().top + 5]
+        offset:[-$('.page:visible').offset().left, -$('.page:visible').offset().top + 5]
     });
 
     soundManager.setup({
         useFlashBlock:false,
         url:'/js/swf/',
     });
+
+
+    if ($('#main_page').length > 0) {
+        ko.applyBindings(Video.ViewModel, $('#main_page').get(0));
+    }
+    else {
+
+        $('.demo .iframe').fancybox({"type":"iframe", onComplete:function () {
+            $('fancybox-inner').append('<h1>Hello world</h1>');
+        }});
+
+    }
 
 });

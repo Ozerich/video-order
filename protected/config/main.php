@@ -36,6 +36,7 @@ return array(
                 'upload' => 'site/upload',
                 'upload_mp3' => 'site/upload_mp3',
                 'save' => 'site/save',
+                'order/<hash:\w+>' => 'site/order/hash/<hash>',
 
 
                 'reelconfig/designs/delete/<id:\d+>' => 'admin/designs/delete/id/<id>',
