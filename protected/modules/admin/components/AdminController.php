@@ -22,4 +22,6 @@ class AdminController extends CController
         return true;
     }
 
+    protected $page_title;
+
 }

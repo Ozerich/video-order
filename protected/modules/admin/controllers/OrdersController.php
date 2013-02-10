@@ -37,6 +37,8 @@ class OrdersController extends AdminController
             throw new CHttpException(404);
         }
 
+        $this->page_title = "№".$model->id.", ".$model->email.", ";
+
         $this->breadcrumbs[] = array('url' => 'orders', 'label' => 'Все заказы');
         $this->breadcrumbs[] = array('url' => '', 'label' => 'Заказ №' . $item_id);
 

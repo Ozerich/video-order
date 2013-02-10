@@ -21,7 +21,10 @@
                 <h4>Диктор</h4>
                 <? if ($model->voice): ?>
                 <a class="param-link" href="/reelconfig/voices/<?=$model->voice->id?>"><?=$model->voice->name?></a>
+                <p><?=$model->voice->description?></p>
                 <a href="<?=$model->voice->getFileUrl();?>" class="sm2_button"></a>
+                <a href="<?=$model->voice->getFileUrl();?>" target="_blank">Скачать</a>
+
                 <? endif; ?>
             </div>
 
@@ -30,9 +33,11 @@
                 <? if ($model->music): ?>
                 <a class="param-link" href="/reelconfig/music/<?=$model->music->id?>"><?=$model->music->name?></a>
                 <a href="<?=$model->music->getFileUrl();?>" class="sm2_button"></a>
+                <a href="<?=$model->music->getFileUrl();?>" target="_blank">Скачать</a>
                 <? elseif ($model->music_file): ?>
                 <a class="param-link" target="_blank" href="<?=$model->music_file?>">Пользовательский</a>
                 <a href="<?=$model->music_file?>" class="sm2_button"></a>
+                <a href="<?=$model->music_file?>" target="_blank">Скачать</a>
                 <? endif; ?>
             </div>
 

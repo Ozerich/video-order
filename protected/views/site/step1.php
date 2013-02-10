@@ -163,7 +163,7 @@
     </div>
 
     <div class="btn-next">
-        <input type="submit" onclick="Video.ViewModel.active_tab(3); return false;" value="ДАЛЕЕ ШАГ 2"/>
+        <input type="submit" onclick="Video.ViewModel.changePage(3); return false;" value="ДАЛЕЕ ШАГ 2"/>
     </div>
 
 </form>

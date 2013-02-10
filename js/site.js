@@ -230,7 +230,16 @@ Video._ViewModel = function () {
     this.active_tab = ko.observable(2);
 
     this.changeActiveTab = function (ind) {
-        this.active_tab(ind);
+        this.changePage(ind);
+    };
+
+
+    this.changePage = function(newPage)
+    {
+        $('.page:visible').fadeOut();
+        $('.page-' + newPage).fadeIn();
+        jQuery('html, body').animate( { scrollTop: 0 }, 'slow' );
+        this.active_tab(newPage);
     };
 
 
@@ -352,7 +361,9 @@ Video._ViewModel = function () {
         $('.gallery').galleryScroll();
         initCastomForms();
         initAll();
-        $('.demo .iframe').fancybox({"type":"iframe"});
+        $('.demo .iframe').fancybox({"type":"iframe", onComplete:function () {
+            $('fancybox-inner').append('<h1>Hello world</h1>');
+        }});
 
         basicMP3Player = new BasicMP3Player();
 
@@ -431,11 +442,16 @@ Video._ViewModel = function () {
             return;
         }
 
-        that.active_tab(4);
+        if (!that.selectedDesign()) {
+            alert('Вы не выбрали дизайн ролика, без него ничего не получится');
+            return;
+        }
+
+        that.changePage(4);
     };
 
     this.back_to_edit = function () {
-        that.active_tab(3);
+        that.changePage(3);
     };
 
     this.name = ko.observable();
@@ -518,7 +534,7 @@ Video._ViewModel = function () {
 
         $.post('/save', this.getAJAX(), function (data) {
             that.save_loader(false);
-            that.active_tab(5);
+            that.changePage(5);
         });
     }
 };
@@ -589,29 +605,29 @@ Video.loadFile = function (event) {
     var frame = Video.ViewModel.findFrame(id);
     frame.loader(true);
 
-        $.ajaxFileUpload({
-            url:'/upload',
-            secureuri:false,
-            fileElementId:$(event.target).parents('.col1').find('input[type=file]').attr('id'),
-            dataType:'json',
-            success:function (data, status) {
-                if (typeof(data.error) != 'undefined') {
-                    if (data.error != '') {
-                        alert(data.error);
-                    } else {
+    $.ajaxFileUpload({
+        url:'/upload',
+        secureuri:false,
+        fileElementId:$(event.target).parents('.col1').find('input[type=file]').attr('id'),
+        dataType:'json',
+        success:function (data, status) {
+            if (typeof(data.error) != 'undefined') {
+                if (data.error != '') {
+                    alert(data.error);
+                } else {
 
-                        frame.loader(false);
-                        frame.loaded(true);
-                        frame.setImage(data.image);
-                        frame.setPreviewImage(data.preview_image);
+                    frame.loader(false);
+                    frame.loaded(true);
+                    frame.setImage(data.image);
+                    frame.setPreviewImage(data.preview_image);
 
-                    }
                 }
-            },
-            error:function (data, status, e) {
-                alert(e);
             }
-        });
+        },
+        error:function (data, status, e) {
+            alert(e);
+        }
+    });
 
 
 };

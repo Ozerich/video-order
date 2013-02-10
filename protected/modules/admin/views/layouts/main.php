@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Bannerstudio - Control Panel</title>
+    <title><?=$this->page_title ? $this->page_title : 'Bannerstudio - Control Panel'?></title>
 
     <link rel="stylesheet" type="text" href="/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/less" href="/css/admin.less"/>
@@ -18,6 +18,18 @@
     <script>
         $(function(){
             var basicMP3Player = new BasicMP3Player();
+
+            $(".help").simpletip({
+
+                onBeforeShow:function () {
+                    var text = this.getParent().find('img').attr('alt');
+                    this.getTooltip().html(text);
+                },
+                // Configuration properties
+                content:'My Simpletip',
+                offset:[-$('#page_step_1').offset().left, -$('#page_step_1').offset().top + 5]
+            });
+
         });
     </script>
 </head>
